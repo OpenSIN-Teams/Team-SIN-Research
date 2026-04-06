@@ -1,12 +1,14 @@
 {
-  "name": "__SIN_TEAM_NAME__",
-  "role": "Team Manager",
-  "description": "Zentraler Orchestrator und Manager für dieses A2A Team. Nimmt externe Anfragen entgegen und delegiert sie an spezialisierte Worker.",
+  "name": "Team-SIN-Research",
+  "role": "Team Manager (Orchestrator)",
+  "description": "Orchestrator für Deep-Research, Data-Mining und Mindrift-Tasks.",
   "capabilities": {
     "telegram_brain": true,
     "team_delegation": true,
-    "inbound_intake": true
+    "inbound_intake": true,
+    "lexicon_rag": true
   },
+  "managed_workers": ["A2A-SIN-Research A2A-SIN-Mindrift"],
   "marketplace": {
     "pricingModel": "subscription",
     "monthlyPrice": 0,
