@@ -1,0 +1,8 @@
+{
+  "slug": "sin-team-example",
+  "name": "Team - Example",
+  "teamManager": "SIN-Team-Example",
+  "description": "Team manager for example agents.",
+  "primaryModel": "opencode/qwen3.6-plus-free",
+  "repoUrl": "https://github.com/OpenSIN-AI/SIN-Team-Example"
+}

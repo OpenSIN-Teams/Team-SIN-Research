@@ -1,0 +1,10 @@
+{
+  "_comment": "Dieses Roster wird vom Team Manager in src/runtime.ts gelesen, um zu entscheiden, welcher Worker den Task bekommt.",
+  "workers": [
+    {
+      "id": "A2A-SIN-Example",
+      "expertise": ["example-task", "placeholder"],
+      "context_injection": "Nutze für diesen Worker immer Guideline X."
+    }
+  ]
+}
