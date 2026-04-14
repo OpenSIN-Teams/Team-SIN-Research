@@ -1,114 +1,49 @@
-# 🚨 HUGGING FACE SPACE HARDWARE RULE (PRIORITY -7 — ABSOLUT, KEINE AUSNAHMEN) 🚨
+# Team-SIN-Research — AGENTS.md
 
-**ABSOLUTES VERBOT: KEINE GPU/ZeroGPU SPACES FÜR A2A AGENT RUNTIMES!**
+## Purpose
 
-- HF Free Tier erlaubt **UNBEGRENZT CPU-Basic Spaces** gleichzeitig — komplett kostenlos
-- GPU/ZeroGPU Spaces haben Quota-Limits (8x pro Account) und benötigen Payment
-- **ALLE** A2A Agent Spaces MÜSSEN auf `cpu-basic` Hardware konfiguriert sein
-- **NIEMALS** `gpu`, `zerogpu`, oder paid Hardware für Agent Runtimes verwenden
-- **IMMER** Keep-Alive-Ping alle 5 Minuten implementieren (verhindert 48h Sleep)
+Autonomous Team Manager operating within the OpenSIN-AI ecosystem.
 
-### KOSTEN
+## Rules
 
-| Hardware | Kosten | Max gleichzeitig |
-|----------|--------|-----------------|
-| `cpu-basic` | **$0 (FREE)** | **UNBEGRENZT** |
-| `zerogpu` | FREE | 8 pro Account |
-| `gpu (T4)` | $288/Mo | Unbegrenzt (Payment) |
+- NEVER ask user for manual help — find your own way
+- ALWAYS use opencode CLI for LLM calls — never direct API calls
+- ALWAYS log errors to GitLab LogCenter — never leave logs locally
 
-**FAZIT: CPU-Basic = $0, UNBEGRENZT Spaces, KEIN Payment nötig!**
+## LLM Call Architecture
 
-Siehe auch: [Global Dev Docs HF Space Hardware Standard](https://github.com/OpenSIN-AI/Global-Dev-Docs-Standard/blob/main/standards/hf-space-hardware.md)
+```python
+import subprocess, json
 
----
-
-
-# 🚨 HUGGING FACE SPACE HARDWARE RULE (PRIORITY -7 — ABSOLUT, KEINE AUSNAHMEN) 🚨
-
-**ABSOLUTES VERBOT: KEINE GPU/ZeroGPU SPACES FÜR A2A AGENT RUNTIMES!**
-
-- HF Free Tier erlaubt **UNBEGRENZT CPU-Basic Spaces** gleichzeitig — komplett kostenlos
-- GPU/ZeroGPU Spaces haben Quota-Limits (8x pro Account) und benötigen Payment
-- **ALLE** A2A Agent Spaces MÜSSEN auf `cpu-basic` Hardware konfiguriert sein
-- **NIEMALS** `gpu`, `zerogpu`, oder paid Hardware für Agent Runtimes verwenden
-- **IMMER** Keep-Alive-Ping alle 5 Minuten implementieren (verhindert 48h Sleep)
-
-### KORREKTE SPACE ERSTELLUNG
-
-```bash
-curl -X POST https://huggingface.co/api/repos/create \
-  -H "Authorization: Bearer $HF_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "{\"name\": \"sin-my-agent\", \"type\": \"space\", \"sdk\": \"docker\"}"
-
-curl -X POST https://huggingface.co/api/spaces/{owner}/{space}/hardware \
-  -H "Authorization: Bearer $HF_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "{\"flavor\": \"cpu-basic\"}"
+def call_llm(prompt, timeout=120):
+    result = subprocess.run(
+        ["opencode", "run", prompt, "--format", "json"],
+        capture_output=True, text=True, timeout=timeout,
+    )
+    parts = []
+    for line in result.stdout.splitlines():
+        try:
+            ev = json.loads(line)
+            if ev.get("type") == "text":
+                parts.append(ev.get("part", {}).get("text", ""))
+        except json.JSONDecodeError:
+            pass
+    return "".join(parts).strip()
 ```
 
-### KOSTEN
+**Model:** `opencode/qwen3.6-plus-free` + `--fallback opencode/minimax-m2.5-free`
 
-| Hardware | Kosten | Max gleichzeitig |
-|----------|--------|-----------------|
-| `cpu-basic` | **$0 (FREE)** | **UNBEGRENZT** |
-| `zerogpu` | FREE | 8 pro Account |
-| `gpu (T4)` | $288/Mo | Unbegrenzt (Payment) |
+## PARALLEL-EXPLORATION MANDATE (PRIORITY -4.5)
 
-**FAZIT: CPU-Basic = $0, UNBEGRENZT Spaces, KEIN Payment nötig!**
+Bei grossen Codebases MUESSEN Agenten **5-10 parallele explore + 5-10 librarian-Agenten** starten.
 
-Siehe auch: [Global Dev Docs HF Space Hardware Standard](https://github.com/OpenSIN-AI/Global-Dev-Docs-Standard/blob/main/standards/hf-space-hardware.md)
+## Subagenten-Modelle
 
----
+| Subagent | Modell | Fallback-Kette |
+|:---|:---|:---|
+| **explore** | `nvidia-nim/stepfun-ai/step-3.5-flash` | gemini-3-flash → gpt-5.4 → gemini-3.1-pro → claude-sonnet → qwen |
+| **librarian** | `nvidia-nim/stepfun-ai/step-3.5-flash` | gemini-3-flash → gpt-5.4 → gemini-3.1-pro → claude-sonnet → qwen |
 
-# Agent: Template-A2A-SIN-Team
+## Agent Config System v5
 
-**Team:** Team Management  
-**Protocol:** A2A (Agent-to-Agent)  
-**Status:** Active  
-**Repository:** https://github.com/OpenSIN-AI/Template-A2A-SIN-Team
-
-## Capabilities
-
-Team management and coordination agent.
-
-## Communication
-
-- **Input:** A2A messages from orchestrator
-- **Output:** A2A messages to other agents
-- **MCP:** Standard OpenSIN MCP servers
-
-## Security
-
-- All operations logged to OpenSIN-Ledger
-- Requires authorization token
-- Guardrails enforced on all inputs/outputs
-
-## Setup
-
-```bash
-git clone https://github.com/OpenSIN-AI/Template-A2A-SIN-Team.git
-cd Template-A2A-SIN-Team
-npm install
-npm start
-```
-
-## License
-
-MIT
-
----
-
-## 📚 Documentation
-
-Full documentation: **[docs.opensin.ai](https://docs.opensin.ai)**
-
-| Section | Link |
-|---------|------|
-| Getting Started | [Guide](https://docs.opensin.ai/guide/getting-started) |
-| API Reference | [API](https://docs.opensin.ai/api/overview) |
-| Tutorials | [Tutorials](https://docs.opensin.ai/tutorials/agent-basics) |
-| Integrations | [Integrations](https://docs.opensin.ai/integrations/telegram) |
-| Architecture | [Architecture](https://docs.opensin.ai/architecture/overview) |
-| Community | [Discord](https://discord.gg/opensin) |
-
+→ [Full Documentation](https://github.com/OpenSIN-AI/OpenSIN-documentation/blob/main/docs/guide/agent-configuration.md)
