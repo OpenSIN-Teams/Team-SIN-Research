@@ -1,23 +1,38 @@
-# Team-SIN-Research (Orchestrator)
+# Team-SIN-Research
 
-Dieser Agent ist das Gehirn und der **Team Manager** für seine Domäne in der OpenSIN-AI Flotte.
-Er arbeitet nach dem strikten **Hub & Spoke** Architekturmodell.
+Deep-Research Agent
 
-## 🏗️ Team Hierarchie
+## Purpose
 
-```mermaid
-graph TD;
-    User[Operator / Telegram] -->|Task| TeamManager[Team-SIN-Research];
-    Hermes[SIN-Hermes Router] -->|Payload| TeamManager;
-    TeamManager -->|Delegate| Workers[Interne Worker Agenten];
-    Workers -->|Result| TeamManager;
-    TeamManager -->|Aggregate & Respond| Hermes;
-    TeamManager -->|Aggregate & Respond| User;
-```
+Team Manager for coordinating specialist agents within the OpenSIN-AI ecosystem.
 
-### 🛠 Unterstellte Worker-Agenten
-```json
-["A2A-SIN-Research A2A-SIN-Mindrift"]
-```
+## Team Configuration
 
-*Verstoß gegen diese Kommunikationshierarchie ist laut PRIORITY -1 streng verboten.*
+| Property | Value |
+|:---|:---|
+| **Team** | Team-SIN-Research |
+| **Type** | Team Manager |
+| **Primary Model** | `opencode/qwen3.6-plus-free` |
+
+### Subagenten-Modelle
+
+| Subagent | Modell |
+|:---|:---|
+| **explore** | `nvidia-nim/stepfun-ai/step-3.5-flash` |
+| **librarian** | `nvidia-nim/stepfun-ai/step-3.5-flash` |
+
+## Agent Config System v5
+
+Team is registered in `oh-my-sin.json` with dedicated team config:
+- **Team Register:** `oh-my-sin.json`
+- **Team Config:** `my-sin-team-research.json`
+
+### PARALLEL-EXPLORATION MANDATE
+
+Bei grossen Codebases MUSS der Agent **5-10 parallele explore + 5-10 librarian-Agenten** starten.
+
+→ [Full Documentation](https://github.com/OpenSIN-AI/OpenSIN-documentation/blob/main/docs/guide/agent-configuration.md)
+
+## License
+
+MIT
