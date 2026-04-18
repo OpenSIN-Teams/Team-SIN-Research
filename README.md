@@ -1,38 +1,43 @@
-# Team-SIN-Research
+# Research Team
 
-Deep-Research Agent
+> **Deep research, summarisation, and distributed-cognition experiments.**
 
-## Purpose
+**Price:** €19/mo (addon on top of My.OpenSIN Pro)
 
-Team Manager for coordinating specialist agents within the OpenSIN-AI ecosystem.
+**Status:** `beta`
+**Tier:** `marketplace`
+**Slug (marketplace URL):** `my.opensin.ai/marketplace/research`
 
-## Team Configuration
+## What it does
 
-| Property | Value |
-|:---|:---|
-| **Team** | Team-SIN-Research |
-| **Type** | Team Manager |
-| **Primary Model** | `opencode/qwen3.6-plus-free` |
+A research squad for people whose job is thinking. Runs multi-source deep research, produces high-quality summaries, and experiments with distributed-cognition (Mindrift) workflows for teams that want their research done collaboratively across agents.
 
-### Subagenten-Modelle
+## Highlights
 
-| Subagent | Modell |
-|:---|:---|
-| **explore** | `nvidia-nim/stepfun-ai/step-3.5-flash` |
-| **librarian** | `nvidia-nim/stepfun-ai/step-3.5-flash` |
+- Multi-source deep research with citation discipline
+- Executive-grade summaries with verification trail
+- Distributed cognition across multiple agents (Mindrift)
+- Topic tracking with daily/weekly digests
+- Exports to Google Docs, Notion, or plain markdown
 
-## Agent Config System v5
+## Agents
 
-Team is registered in `oh-my-sin.json` with dedicated team config:
-- **Team Register:** `oh-my-sin.json`
-- **Team Config:** `my-sin-team-research.json`
+- **A2A-SIN-Research** — primary: Multi-source deep research.
+- **A2A-SIN-Summary** — primary: Summarisation with verification.
+- **A2A-SIN-Mindrift** — supporting: Distributed-cognition experimentation.
 
-### PARALLEL-EXPLORATION MANDATE
+## How this repo works
 
-Bei grossen Codebases MUSS der Agent **5-10 parallele explore + 5-10 librarian-Agenten** starten.
+This is a **marketplace manifest repo**, not a code package. The source of truth for `team.json` lives in [`OpenSIN-AI/OpenSIN-overview/templates/teams/Team-SIN-Research.json`](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/templates/teams/Team-SIN-Research.json).
 
-→ [Full Documentation](https://github.com/OpenSIN-AI/OpenSIN-documentation/blob/main/docs/guide/agent-configuration.md)
+To change this team:
+1. PR against [`OpenSIN-AI/OpenSIN-overview`](https://github.com/OpenSIN-AI/OpenSIN-overview) editing `templates/teams/Team-SIN-Research.json`.
+2. After merge, a maintainer runs `scripts/push-team-manifests.js` which updates the `team.json` in this repo.
 
-## License
+Do **not** edit `team.json` directly in this repo — it will be overwritten on the next sync.
 
-MIT
+## See also
+
+- [OpenSIN-overview START-HERE.md](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/START-HERE.md)
+- [PRODUCT-VISION.md](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/PRODUCT-VISION.md)
+- [schemas/team.schema.json](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/schemas/team.schema.json)
