@@ -1,15 +1,15 @@
 {
-  "name": "a2a-sin-agent-base",
-  "version": "1.0.0",
-  "description": "SIN A2A Agent Base Server",
-  "main": "server.js",
+  "name": "@sin/team-monorepo",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js",
-    "build": "echo 'No build step needed'"
+    "test": "nx run-many --target=test --all",
+    "test:affected": "nx affected --target=test",
+    "graph": "nx graph",
+    "create-agent": "nx generate @sin/monorepo:agent",
+    "setup": "bash scripts/dev-setup.sh"
   },
-  "dependencies": {
-    "express": "^4.21.0"
-  },
-  "license": "Apache-2.0"
+  "devDependencies": {
+    "nx": "latest",
+    "@nx/js": "latest"
+  }
 }

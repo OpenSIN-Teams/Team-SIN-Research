@@ -1,11 +1,4 @@
 node_modules/
 dist/
-.env
-.env.local
-*.log
-coverage/
-.DS_Store
-*.swp
-*.swo
-.next/
-out/
+.nx/
+nx-cloud.env

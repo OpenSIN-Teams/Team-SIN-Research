@@ -1,0 +1,14 @@
+name: CI Team-SIN-Research
+on:
+  workflow_run:
+    workflows: ["Parent CI"]
+    types: [completed]
+  push:
+    branches: [main]
+    paths: ['agents/**']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx nx test 

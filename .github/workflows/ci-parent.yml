@@ -1,0 +1,15 @@
+name: Parent CI
+on: [push, pull_request]
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      teams: ${{ steps.detect.outputs.teams }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: detect
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 -- agents/ | cut -d/ -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "teams=$CHANGED" >> $GITHUB_OUTPUT
