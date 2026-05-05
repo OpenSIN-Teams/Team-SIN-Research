@@ -1,0 +1,2 @@
+{ "name": "starter-research", "model": "vercel/deepseek/deepseek-v4-flash",
+  "description": "Starter agent for Team-SIN-Research — replace with actual agent" }

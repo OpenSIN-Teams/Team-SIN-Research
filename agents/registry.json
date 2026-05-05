@@ -1,1 +1,10 @@
-{ "agents": {} }
+{
+  "agents": {
+    "starter-research": {
+      "module": "agents/starter-research/module.json",
+      "path": "agents/starter-research",
+      "model": "vercel/deepseek/deepseek-v4-flash",
+      "team": "research"
+    }
+  }
+}
