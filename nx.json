@@ -1,12 +1,20 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "main",
-  "plugins": ["@nx/js"],
-  "nxCloudAccessToken": "",
+  "plugins": [
+    "@nx/js"
+  ],
+  "nxCloudAccessToken": "{env:NX_CLOUD_ACCESS_TOKEN}",
   "targetDefaults": {
     "test": {
-      "dependsOn": ["^build"],
-      "inputs": ["default", "^default"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "default",
+        "^default"
+      ],
+      "cache": true
     }
   },
   "projects": {}

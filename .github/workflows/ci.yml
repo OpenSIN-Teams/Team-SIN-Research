@@ -1,0 +1,28 @@
+name: CI
+on:
+  push:
+    branches: [main]
+    paths: ['agents/**']
+  pull_request:
+    paths: ['agents/**']
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm ci
+      - name: Nx affected test
+        run: npx nx affected --target=test --base=HEAD~1
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      - name: Check module.json consistency
+        run: |
+          for m in agents/*/module.json; do
+            name=$(basename $(dirname $m))
+            jq -e --arg n "$name" '.name == $n' "$m" >/dev/null || echo "❌ $m: name mismatch"
+          done
+          echo "✅ All module.json valid"
