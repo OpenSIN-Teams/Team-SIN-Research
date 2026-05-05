@@ -6,7 +6,9 @@
     "test:affected": "nx affected --target=test",
     "graph": "nx graph",
     "create-agent": "nx generate @sin/monorepo:agent",
-    "setup": "bash scripts/dev-setup.sh"
+    "setup": "bash scripts/dev-setup.sh",
+    "graphify": "graphify update . --output graphify-out/",
+    "graphify:watch": "graphify watch . --output graphify-out/"
   },
   "devDependencies": {
     "nx": "latest",
