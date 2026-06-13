@@ -36,6 +36,10 @@ To change this team:
 
 Do **not** edit `team.json` directly in this repo — it will be overwritten on the next sync.
 
+## Tooling
+
+Research agents in this team use the unified `sin-websearch` stack (`OpenSIN-Code/web_search_bundle`). The predecessor websearch skills (`SIN-Code-Websearch-Skill`, `SIN-Websearch-SerpAPI-Bundle`) are archived.
+
 ## See also
 
 - [OpenSIN-overview START-HERE.md](https://github.com/OpenSIN-AI/OpenSIN-overview/blob/main/START-HERE.md)
